@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+	int data; // data field
+	struct node *next;
+};
+
+void traverse(struct node* head){
+	struct node* current=head; // current node set to head
+	int count=0; // to count total no of nodes
+	printf("\n traversing the list\n");
+	while(current!=NULL){ //traverse until current node isn't NULL
+		
+		count++; //increase node count
+		printf("%d ",current->data);
+		current=current->next; // go to next node
+		
+	}
+	
+	printf("\ntotal no of nodes : %d\n",count);
+}
+
+struct node* creatnode(int d){
+	struct node* temp=malloc(sizeof(struct node));
+	temp->data=d;
+	temp->next=NULL;
+	return temp;
+}
+
+int main(){
+	printf("creating the linked list by inserting new nodes at the begining\n");
+	
+	
+	
+	printf("enter 0 to stop building the list, else enter any integer\n");
+	
+	int k,count=1,x;
+	
+	struct node* curr,*temp,*prev;
+	
+	scanf("%d",&k);
+	struct node* head=creatnode(k); //buliding list, first node
+	scanf("%d",&k);
+	///////////////////inserting at begining//////////////////////
+	while(k){
+	curr=creatnode(k);
+	curr->next=head;                     //inserting each new node at the begining
+	head=curr;
+	scanf("%d",&k);
+	}
+	traverse(head); // displaying the list
+	
+	
+	////////////////deleting the first node////////////////////
+	
+	printf("\ndeleting the first node.............\n");
+	temp=head;   // first node assigned to temp
+	head=head->next; // head node is updated
+	free(temp); // deleting the first node
+	
+	traverse(head);  // displaying the list
+	
+	printf("\nfirst node deleted...............\n");
+	
+	/////////////////deleting the last node////////////////
+	printf("\ndeleting the last node.............\n");
+	temp=head->next;
+	prev=head;
+	while(temp->next!=NULL){
+		temp=temp->next;
+		prev=prev->next;
+	} 
+	// after traversal temp points to the last 
+	//node and prev to the previous node of the last node
+	prev->next=NULL;
+	free(temp);
+	traverse(head);
+	printf("\last node deleted................\n");
+	
+	///////////////deleting any intermediate node in the list////////////////
+
+	printf("\n enter the position of the node you want to delete\n");
+	scanf("%d",&x);
+	temp=head->next;
+	prev=head;
+	while(count!=x-1){
+		temp=temp->next;
+		prev=prev->next;
+		count++;
+	} // temp pointing to the node to be deleted and prev to the previous node 
+	
+	prev->next=temp->next;
+	free(temp);
+	
+	traverse(head);
+	
+	return 0;
+	
+}
