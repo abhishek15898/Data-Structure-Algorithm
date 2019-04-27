@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+	int data; // data field
+	struct node *next;
+};
+
+void traverse(struct node* head){
+	struct node* current=head; // current node set to head
+	int count=0; // to count total no of nodes
+	printf("\n traversing the list\n");
+	
+	//traverse until current node isn't NULL
+	while(current!=NULL){ 
+		count++; //increase node count
+		printf("%d ",current->data);
+		current=current->next; // go to next node
+	}
+	printf("\ntotal no of nodes : %d\n",count);
+}
+
+struct node* creatnode(int d){
+	struct node* temp= (struct node*) malloc(sizeof(struct node));
+	temp->data=d;
+	temp->next=NULL;
+	return temp;
+}
+
+int main()
+{
+	printf("creating & traversing linked list\n");
+	
+	//same linked list is built according to image shown
+	struct node* head=creatnode(5);
+	
+	head->next=creatnode(10);
+	head->next->next=creatnode(20);
+	head->next->next->next=creatnode(1);
+
+	traverse(head);
+	return 0;
+}
