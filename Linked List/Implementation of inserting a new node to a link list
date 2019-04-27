@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+	int data; // data field
+	struct node *next;
+};
+
+void traverse(struct node* head){
+	struct node* current=head; // current node set to head
+	int count=0; // to count total no of nodes
+	printf("\n traversing the list\n");
+	while(current!=NULL){ //traverse until current node isn't NULL
+		
+		count++; //increase node count
+		printf("%d ",current->data);
+		current=current->next; // go to next node
+		
+	}
+	
+	printf("\ntotal no of nodes : %d\n",count);
+}
+
+struct node* creatnode(int d){
+	struct node* temp=malloc(sizeof(struct node));
+	temp->data=d;
+	temp->next=NULL;
+	return temp;
+}
+
+int main(){
+	printf("creating the linked list by inserting new nodes at the begining\n");
+	
+	
+	
+	printf("enter 0 to stop building the list, else enter any integer\n");
+	
+	int k,count=1,x;
+	
+	struct node* curr;
+	
+	scanf("%d",&k);
+	struct node* head=creatnode(k); //buliding list, first node
+	scanf("%d",&k);
+	///////////////////inserting at begining//////////////////////
+	while(k){
+	curr=creatnode(k);
+	curr->next=head;                     //inserting each new node at the begining
+	head=curr;
+	scanf("%d",&k);
+	}
+	traverse(head); // displaying the list
+	////////////////////////inserting at the end/////////////////////
+	printf("enter the integer you want to add at the end of the list\n");
+	scanf("%d",&k);
+	struct node* temp=head;
+	while(temp->next){
+		temp=temp->next;  // traversing to the last node of existing list
+	}
+	struct node* cur=creatnode(k);
+	temp->next=cur;  //appended
+	printf("..............new node added at the end..............\n");
+	traverse(head);
+	
+	////////////inserting at middle/////////////
+	
+	printf("Enter your desired position where you want to insert the new node\n");
+	scanf("%d",&x);
+	printf("enter desired node data\n");
+	scanf("%d",&k);
+	
+	curr=head;
+	
+	while(count!=x-1){
+		curr=curr->next;            // curr locating at desired node
+		count++;
+	}
+	cur=creatnode(k);
+	
+	temp=curr->next;  //temp node as described as article
+	
+	curr->next=cur;    // inserting in the middle
+	cur->next=temp;
+	
+	printf("New node added after the desired position...\n");
+	
+	traverse(head);
+	return 0;
+	
+}
